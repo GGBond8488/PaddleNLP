@@ -552,6 +552,21 @@ def main():
         checkpoint = training_args.resume_from_checkpoint
     elif last_checkpoint is not None:
         checkpoint = last_checkpoint
+    # model.llama = paddle.jit.to_static(
+    #         model.llama,
+    #         input_spec=[
+    #             paddle.static.InputSpec(name="input_ids", shape=[-1, -1], dtype="int64"),  # input_ids
+    #             None,  # position_ids
+    #             None,  # attention_mask
+    #             None,  # inputs_embeds
+    #             # paddle.static.InputSpec(name="labels", shape=[-1, -1], dtype="int64"),  # labels
+    #             False,  # use_cache
+    #             None,  # past_key_values
+    #             None,  # output_attentions
+    #             None,  # output_hidden_states
+    #             None,  # return_dict
+    #         ],
+    #     )
 
     # Training
     if training_args.do_train:
@@ -561,9 +576,13 @@ def main():
         trainer.log_metrics("train", metrics)
         trainer.save_metrics("train", metrics)
         trainer.save_state()
+    llama = model.llama
+    print(llama.forward.concrete_program.startup_program)
+    print(llama.forward.concrete_program.main_program)
+    exit(0)
 
-    test_ret = trainer.predict(test_dataset)
-    trainer.log_metrics("test", test_ret.metrics)
+    # test_ret = trainer.predict(test_dataset)
+    # trainer.log_metrics("test", test_ret.metrics)
 
     # if training_args.do_predict:
     #     test_ret = trainer.predict(test_dataset)

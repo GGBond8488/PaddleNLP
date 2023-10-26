@@ -1490,6 +1490,7 @@ class LlamaForCausalLM(LlamaPretrainedModel):
         )
 
         logits = self.lm_head(hidden_states, tensor_parallel_output=tensor_parallel_output)
+        paddle.save(logits, "no_cinn_output.paddle")
 
         loss = None
         if labels is not None:
