@@ -32,7 +32,7 @@ export FLAGS_cinn_fusion_groups_graphviz_dir="./cinn_fusion_graph/"
 
 
 task_name_or_path="llama_output"
-python run_pretrain.py \
+GLOG_v=10 python run_pretrain.py \
     --model_type "llama" \
     --model_name_or_path "__internal_testing__/distributed-projection-llama-7b" \
     --tokenizer_name_or_path "__internal_testing__/distributed-projection-llama-7b" \

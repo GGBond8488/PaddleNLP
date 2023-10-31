@@ -1,0 +1,7 @@
+./data/*
+./*.log
+./save_cinn/*
+./save_comp/*
+./cinn_fusion_graph/*
+./cinn_graph/*
+./cinn_pass/*
