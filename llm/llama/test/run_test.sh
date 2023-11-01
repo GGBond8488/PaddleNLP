@@ -29,5 +29,4 @@ rm -rf ./cinn_fusion_graph/*
 export FLAGS_cinn_fusion_groups_graphviz_dir="./cinn_fusion_graph/"
 
 
-task_name_or_path="llama_output"
-GLOG_v=6 python test_element_mul.py 
+GLOG_v=6 python test_cinn.py 

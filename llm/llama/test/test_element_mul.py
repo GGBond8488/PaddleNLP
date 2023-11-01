@@ -74,23 +74,15 @@ position_ids = paddle.Tensor(paddle.base.core.load_tensor_c(position_ids_path))
 q = paddle.Tensor(paddle.base.core.load_tensor_c(q_path))
 k = paddle.Tensor(paddle.base.core.load_tensor_c(k_path))
 
-print(sin.shape)
-print(cos.shape)
-print(position_ids.shape)
-print(q.shape)
-print(k.shape)
+print(sin)
+print(cos)
+print(position_ids)
+print(q)
+print(k)
 
 static_test = paddle.jit.to_static(test_cinn)
 
 
 q_embed, k_embed = static_test(q, k, cos, sin, position_ids)
-paddle.save(q_embed, './cinn_fusion_q_embed.pdtensor')
-paddle.save(k_embed, './cinn_fusion_k_embed.pdtensor')
-
-# np.testing.assert_allclose(out_no_cinn, out_cinn, rtol=0)
-# # np.testing.assert_allclose(out_no_cinn, tmp_6, rtol=1e-3)
-# np.testing.assert_allclose(tmp_6, out_cinn, rtol=1e-3) 
-
-# np.testing.assert_equal(out_no_cinn.numpy(), out_cinn.numpy())
-# np.testing.assert_equal(out_no_cinn.numpy(), tmp_6.numpy())
-# np.testing.assert_equal(tmp_6.numpy(), out_cinn.numpy())
+# paddle.save(q_embed, './cinn_fusion_q_embed.pdtensor')
+# paddle.save(k_embed, './cinn_fusion_k_embed.pdtensor')
